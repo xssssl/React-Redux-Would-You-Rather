@@ -13,16 +13,16 @@ const NewPoll: React.FC = () => {
               <img className="img-avatar mt-4 mb-4" src={WouldYouRather} />
             </div>
             <div className="form-group">
-              <label className="col-form-label col-form-label-lg" htmlFor="NewPollOptionOne">Option One:</label>
-              <input type="text" className="form-control form-control-lg" id="NewPollOptionOne" placeholder="Option One" />
+              <label className="col-form-label" htmlFor="NewPollOptionOne">Option One:</label>
+              <input type="text" className="form-control" id="NewPollOptionOne" placeholder="Option One" />
             </div>
             <div className="form-group">
-              <label className="col-form-label col-form-label-lg" htmlFor="NewPollOptionTwo">Option Two:</label>
-              <input type="text" className="form-control form-control-lg" id="NewPollOptionTwo" placeholder="Option Two" />
+              <label className="col-form-label" htmlFor="NewPollOptionTwo">Option Two:</label>
+              <input type="text" className="form-control" id="NewPollOptionTwo" placeholder="Option Two" />
             </div>
             <div className="form-group row mt-5">
-              <div className="col-sm-6 offset-sm-3">
-                <button className="btn btn-primary btn-lg btn-block">Submit</button>
+              <div className="col-sm-12">
+                <button className="btn btn-info btn-block">Create</button>
               </div>
             </div>
           </form>
