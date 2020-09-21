@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 import { RootState } from '../types/RootState'
 
-const PrivateRoute = (props: any) => {
+interface PrivateRouteProps {
+  isAuthenticated: boolean,
+  redirectPath: string
+}
+
+const PrivateRoute: React.FC<any> = (props) => {
   const { isAuthenticated, redirectPath, children, ...rest } = props
   useEffect(() => {
     console.log(isAuthenticated)

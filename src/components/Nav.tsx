@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, NavLink } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import brandLogo from '../assets/logo1.png'
@@ -17,12 +18,12 @@ const Nav: React.FC = (props: any) => {
       </button>
       <div className="collapse navbar-collapse font-weight-bold" id="navbarNavAltMarkup">
         <div className="navbar-nav mr-auto mt-2 mt-lg-0">
-          <a className="nav-link active" href="/">Home</a>
-          <a className="nav-link" href="/newpoll">New Poll</a>
-          <a className="nav-link" href="/leaderboard">Leaderboard</a>
+          <NavLink className="nav-link" to="/" exact>Home</NavLink>
+          <NavLink className="nav-link" to="/newpoll">New Poll</NavLink>
+          <NavLink className="nav-link" to="/leaderboard">Leaderboard</NavLink>
         </div>
         <div className="navbar-nav">
-          <a className="nav-link" href="/leaderboard">James Logout</a>
+          <NavLink className="nav-link" to="/leaderboard">James Logout</NavLink>
         </div>
       </div>
     </nav> 

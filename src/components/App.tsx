@@ -18,11 +18,11 @@ const App: React.FC = (props: any) => {
           <Route path="/" exact><Home /></Route>
           <Route path="/newpoll" exact><NewPoll /></Route>
           <Route path="/leaderboard" exact><Leaderboard /></Route>
-          {/* <Route path="/login" exact><ConnectedLogin /></Route> */}
           <Route><NoMatch /></Route>
         </Switch>
       </ConnectedPrivateRoute>
       <Switch>
+        {console.log('You are here')}
         <Route path="/login" exact><ConnectedLogin /></Route>
       </Switch>
     </div>
