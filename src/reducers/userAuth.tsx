@@ -1,24 +1,27 @@
-import { ACTION_TYPES } from '../actions/constants'
-import { userAuthActionType, userAuthStateType } from '../types/userAuthTypes'
+import { Reducer } from 'redux'
+import { USERAUTH_ACTION_TYPES } from '../actions/constants'
+import { UserAuthAction, UserAuthState } from '../types/UserAuthTypes'
 
-const initState: userAuthStateType = {
-  isAuth: false
+const initState: UserAuthState = {
+  isAuthenticated: false,
+  id: ''
 }
 
-export const userAuth = (status = initState, action: userAuthActionType): userAuthStateType => {
+const userAuth: Reducer<UserAuthState, UserAuthAction> = (state = initState, action) => {
   switch(action.type) {
-    case ACTION_TYPES.LOGIN:
+    case USERAUTH_ACTION_TYPES.LOGIN:
       return {
-        isAuth: true,
+        isAuthenticated: true,
         id: action.id
       }
-    case ACTION_TYPES.LOGOUT:
+    case USERAUTH_ACTION_TYPES.LOGOUT:
       return {
-        isAuth: false,
+        isAuthenticated: false,
         id: ''
       }
     default:
-      return status
-        
+      return state
   }
 }
+
+export default userAuth

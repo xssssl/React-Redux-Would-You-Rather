@@ -2,13 +2,15 @@ import {
   _getUsers,
   _getQuestions, 
   _saveQuestion, 
-  _saveQuestionAnswer } from '../utils/_DATA'
+  _saveQuestionAnswer,
+  _userAuthentication } from '../utils/_DATA'
 import { 
   Users,
   Question, 
   Questions, 
   CreateQuestionRequest, 
-  CreateAnswerRequest } from '../services/types'
+  CreateAnswerRequest,
+  UserAuthenticationRequest } from '../services/types'
 
 // Mock Application Logic
 export const getInitUsers = (): Promise<Users> => {
@@ -27,4 +29,8 @@ export const saveQuestion = (
 export const saveAnswer = (
   { authedUser, qid, answer }: CreateAnswerRequest): Promise<void> => {
   return _saveQuestionAnswer({ authedUser, qid, answer })
+}
+
+export const userAuthentication = ({ id, password }: UserAuthenticationRequest): Promise<string> => {
+  return _userAuthentication({ id, password })
 }

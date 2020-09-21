@@ -42,3 +42,8 @@ export interface CreateAnswerRequest {
   qid: string,
   answer: 'optionOne' | 'optionTwo'
 }
+
+export interface UserAuthenticationRequest {
+  id: string,
+  password: string
+}
