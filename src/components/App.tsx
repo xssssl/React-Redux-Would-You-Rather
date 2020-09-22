@@ -12,7 +12,7 @@ import '../styles/App.scss';
 const App: React.FC = (props: any) => {
   return (
     <div className="App">
-      <ConnectedPrivateRoute redirectPath="/login"> 
+      <ConnectedPrivateRoute defaultHomePath="/" authPath="/login"> 
         <Nav />
         <Switch>
           <Route path="/" exact><Home /></Route>
@@ -22,8 +22,8 @@ const App: React.FC = (props: any) => {
         </Switch>
       </ConnectedPrivateRoute>
       <Switch>
-        {console.log('You are here')}
         <Route path="/login" exact><ConnectedLogin /></Route>
+        {/* <Route path="/login" exact><NewPoll /></Route> */}
       </Switch>
     </div>
   );

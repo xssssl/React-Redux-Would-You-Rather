@@ -3,14 +3,18 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import WouldYouRather from '../assets/logo2.png'
 
-const NewPoll: React.FC = () => {
+interface AuthLocationState {
+  fromPath: {current: string}
+}
+
+const NewPoll: React.FC = (props) => {
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-sm-4 offset-sm-4">
           <form>
             <div className="text-center">
-              <img className="img-avatar mt-4 mb-4" src={WouldYouRather} />
+              <img className="img-avatar mt-4 mb-4" src={WouldYouRather} alt="would you rather"/>
             </div>
             <div className="form-group">
               <label className="col-form-label" htmlFor="NewPollOptionOne">Option One:</label>

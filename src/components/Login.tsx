@@ -22,11 +22,6 @@ const Login: React.FC = (props: any) => {
   const [isValidUsername, setIsValidUsername] = useState(true)
   const [isValidPassword, setIsValidPassword] = useState(true)
 
-  // Just for debugging
-  // useEffect(() => {
-  //   console.log(users, userAuth)
-  // }, [users, userAuth])
-
   useEffect(() => {
     console.log('Fetching initial user data ...')
     handleFetchUsersData()
@@ -56,7 +51,6 @@ const Login: React.FC = (props: any) => {
   const handleOnClick = (e: BaseSyntheticEvent): void => {
     e.preventDefault()
     setIsLoginAttemp(true)
-    // console.log(selectedOption, password)
     isValidUsername && isValidPassword && handleUserLogin({id: selectedOption, password})
   }
 
@@ -100,7 +94,6 @@ const Login: React.FC = (props: any) => {
                     className={"form-control" + (isValidPassword ? "" : " is-invalid")}
                     id="LoginPassword" 
                     placeholder="password" 
-                    // ref={passwordRef}
                     onChange={(e: BaseSyntheticEvent) => handlePasswordOnChange(e)}
                     required
                   />

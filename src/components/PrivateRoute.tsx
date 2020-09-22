@@ -1,48 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useRef, ReactNode, FunctionComponent, MutableRefObject } from 'react'
 import { connect } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect, useLocation } from 'react-router-dom'
 import { RootState } from '../types/RootState'
 
 interface PrivateRouteProps {
   isAuthenticated: boolean,
-  redirectPath: string
+  defaultHomePath: string,
+  authPath: string,
+  children?: ReactNode
 }
 
-const PrivateRoute: React.FC<any> = (props) => {
-  const { isAuthenticated, redirectPath, children, ...rest } = props
-  useEffect(() => {
-    console.log(isAuthenticated)
-    console.log(redirectPath)
-    console.log(children)
-  }, [isAuthenticated])
+const PrivateRoute: FunctionComponent<PrivateRouteProps> = (props) => {
+  const { 
+    isAuthenticated, 
+    defaultHomePath, 
+    authPath, 
+    children, 
+    ...rest 
+  } = props
+
+  const location = useLocation()
+  const fromPath: MutableRefObject<string> = useRef(location.pathname)
 
   return (
-    // <Route
-    //   {...rest}
-    //   render={() => (
-    //     <Redirect
-    //       to={redirectPath}
-    //     />
-    //   )
-    //     // isAuthenticated ? (
-    //     //   children
-    //     // ) : (
-    //     //   <Redirect
-    //     //     to={{
-    //     //       pathname: redirectPath,
-    //     //       state: { from: location }
-    //     //     }}
-    //     //   />
-    //     // )
-    //   }
-    // />
     <Route {...rest}>
       {isAuthenticated 
         ? <>
-            <Redirect to="/" />  
+            <Redirect to={fromPath.current || defaultHomePath} />  
             {children}
           </>
-        : <Redirect to={redirectPath} />}
+        : <Redirect to={authPath}
+          />}
     </Route>
   )
 }
