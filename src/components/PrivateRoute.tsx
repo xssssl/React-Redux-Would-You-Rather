@@ -1,4 +1,4 @@
-import React, { useRef, ReactNode, FunctionComponent, MutableRefObject } from 'react'
+import React, { useRef, ReactNode, FunctionComponent, MutableRefObject, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect, useLocation } from 'react-router-dom'
 import { RootState } from '../types/RootState'
@@ -19,6 +19,10 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = (props) => {
     ...rest 
   } = props
 
+  useEffect(() => {
+    isAuthenticated && console.log('PrivateRoute useEffect')
+  }, [isAuthenticated])
+
   const location = useLocation()
   const fromPath: MutableRefObject<string> = useRef(location.pathname)
 
@@ -38,6 +42,8 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = (props) => {
 const mapStateToProps = (state: RootState) => ({
   isAuthenticated: state.userAuth.isAuthenticated
 })
+
+// const mapDispatchToProps = {  }
 
 const ConnectedPrivateRoute = connect(mapStateToProps)(PrivateRoute)
 

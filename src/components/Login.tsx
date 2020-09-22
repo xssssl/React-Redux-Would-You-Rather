@@ -29,7 +29,7 @@ const Login: React.FC = (props: any) => {
   }, [])
 
   useEffect(() => {
-    const usernameList = Object.keys(props.users)
+    const usernameList = Object.keys(users)
     let currentOptions: SelectOptions = usernameList.map(item => {
       const capitalizedItem = item.replace(/^\S/, s => s.toUpperCase())
       return {optionValue: item, optionText: capitalizedItem}
@@ -123,7 +123,7 @@ const Login: React.FC = (props: any) => {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  ...state
+  users: state.users
 })
 
 const  mapDispatchToProps = { handleFetchUsersData, handleUserLogin }

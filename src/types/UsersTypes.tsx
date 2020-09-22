@@ -1,27 +1,21 @@
+import { Action } from 'redux'
 import { CreateQuestionRequest, Users } from '../services/types'
 
-interface AddAnswerAction {
-  type: string,
+export interface AddAnswerAction extends Action<string> {
   authedUser: string,
   qid: string,
   answer: 'optionOne' | 'optionTwo'
 }
 
-interface AddQuestionAction {
-  type: string,
+interface AddQuestionAction extends Action<string> {
   question: CreateQuestionRequest
 }
 
-export interface FetchDataAction {
-  type: string
+export interface FetchDataAction extends Action<string> {
   users: Users
 }
 
-interface ReceiveDataAction {
-  type: string
-}
-
-export type UserAction = FetchDataAction | AddAnswerAction | AddQuestionAction | FetchDataAction | ReceiveDataAction
+export type UserAction = AddAnswerAction | AddQuestionAction | FetchDataAction
 
 
 export type UsersState = Users
