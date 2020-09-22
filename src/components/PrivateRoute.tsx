@@ -26,7 +26,7 @@ const PrivateRoute: FunctionComponent<PrivateRouteProps> = (props) => {
     <Route {...rest}>
       {isAuthenticated 
         ? <>
-            <Redirect to={fromPath.current || defaultHomePath} />  
+            <Redirect to={fromPath.current === authPath ? defaultHomePath : fromPath.current} />  
             {children}
           </>
         : <Redirect to={authPath}

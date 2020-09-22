@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-import Nav from './Nav'
+import ConnectedNav from './Nav'
 import NewPoll from './NewPoll'
 import ConnectedLogin from './Login'
 import Home from './Home'
@@ -13,7 +13,7 @@ const App: React.FC = (props: any) => {
   return (
     <div className="App">
       <ConnectedPrivateRoute defaultHomePath="/" authPath="/login"> 
-        <Nav />
+        <ConnectedNav />
         <Switch>
           <Route path="/" exact><Home /></Route>
           <Route path="/newpoll" exact><NewPoll /></Route>

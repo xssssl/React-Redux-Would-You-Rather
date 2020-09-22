@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { handleFetchUsersData } from '../actions/users'
 import { handleUserLogin } from '../actions/userAuth'
+import Select, { SelectOptions } from './Select'
 import { RootState } from '../types/RootState'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import MainImg from '../assets/main.png'
 
 const Login: React.FC = (props: any) => {
-  const { users, userAuth } = props
+  const { users } = props
   const { handleFetchUsersData, handleUserLogin } = props
 
   // optionValue should be '' if you want to use custom-select validation
@@ -130,22 +131,3 @@ const  mapDispatchToProps = { handleFetchUsersData, handleUserLogin }
 const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
 
 export default ConnectedLogin
-
-
-// ************************************************************* //
-interface SelectOption {
-  optionValue: string,
-  optionText: string
-}
-
-type SelectOptions = Array<SelectOption>
-
-const Select = (props: any) => {
-  const { options, ...rest } = props
-
-  return (
-    <select {...rest} >
-      {options.map(({optionValue, optionText}: SelectOption) => <option key={optionValue} value={optionValue} disabled={!optionValue}>{optionText}</option>)}
-    </select>
-  )
-}
