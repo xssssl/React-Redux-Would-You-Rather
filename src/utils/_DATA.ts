@@ -134,17 +134,17 @@ function generateUID(): string {
 
 export function _getUsers(): Promise<Users> {
   return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1000)
+    setTimeout(() => res({...users}), 1500 + Math.round(Math.random() * 1000))
   })
 }
 
 export function _getQuestions(): Promise<Questions> {
   return new Promise((res, rej) => {
-    setTimeout(() => res({...questions}), 1000)
+    setTimeout(() => res({...questions}), 1500 + Math.round(Math.random() * 1000))
   })
 }
 
-function formatQuestion ({ optionOneText, 
+export function formatQuestion ({ optionOneText, 
                            optionTwoText, 
                            author }: CreateQuestionRequest): Question {
   return {
@@ -165,7 +165,7 @@ function formatQuestion ({ optionOneText,
 export function _saveQuestion (question: CreateQuestionRequest): Promise<Question> {
   return new Promise((res, rej) => {
     const authedUser = question.author;
-    const formattedQuestion = formatQuestion(question);
+    const formattedQuestion: Question = formatQuestion(question);
 
     setTimeout(() => {
       questions = {
