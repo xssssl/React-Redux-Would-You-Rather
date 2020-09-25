@@ -3,7 +3,7 @@ import { USERS_ACTION_TYPES } from '../actions/constants'
 import { 
   UserAction, 
   UserState, 
-  ReceiveDataAction, 
+  FetchDataSuccessAction, 
   AddAnswerAction, 
   AddQuestionAction 
 } from '../types/UsersTypes'
@@ -20,13 +20,18 @@ const users: Reducer<UserState, UserAction> = (state = initState, action: UserAc
         ...state,
         isLoading: true
       }
-    case USERS_ACTION_TYPES.RECEIVE_USERS_DATA:
-      const { data, timestamp} = action as ReceiveDataAction
+    case USERS_ACTION_TYPES.FETCH_USERS_DATA_SUCCESS:
+      const { data, timestamp} = action as FetchDataSuccessAction
       return {
         ...state,
         isLoading: false,
         timestamp,
         data
+      }
+    case USERS_ACTION_TYPES.FETCH_USERS_DATA_FAIL:
+      return {
+        ...state,
+        isLoading: false
       }
     case USERS_ACTION_TYPES.ADD_ANSWER: {
       const { authedUser, qid, answer } = action as AddAnswerAction

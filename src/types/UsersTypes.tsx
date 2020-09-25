@@ -21,16 +21,24 @@ export interface FetchDataAction {
   type: typeof USERS_ACTION_TYPES.FETCH_USERS_DATA
 }
 
-export interface ReceiveDataActionParams {
+export interface FetchDataSuccessActionParams {
   data: Users,
   timestamp: number
 }
 
-export type ReceiveDataAction = ReceiveDataActionParams & {
-  type: typeof USERS_ACTION_TYPES.RECEIVE_USERS_DATA,
+export type FetchDataSuccessAction = FetchDataSuccessActionParams & {
+  type: typeof USERS_ACTION_TYPES.FETCH_USERS_DATA_SUCCESS,
 }
 
-export type UserAction = AddAnswerAction | AddQuestionAction | FetchDataAction | ReceiveDataAction
+export interface FetchDataFailAction {
+  type: typeof USERS_ACTION_TYPES.FETCH_USERS_DATA_FAIL
+}
+
+export type UserAction = | AddAnswerAction
+                         | AddQuestionAction 
+                         | FetchDataAction 
+                         | FetchDataSuccessAction 
+                         | FetchDataFailAction
 
 interface DataLoadState {
   isLoading: boolean,

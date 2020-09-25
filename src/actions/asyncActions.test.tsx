@@ -5,8 +5,6 @@ import { handleFetchUsersData } from './users'
 import { USERS_ACTION_TYPES } from './constants'
 import { UserAction, UserState } from '../types/UsersTypes'
 
-
-
 describe('async users actions', () => {
   it('creates FETCH_TODOS_SUCCESS when fetching todos has been done', () => {
     const middlewares = [thunk]

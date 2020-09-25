@@ -3,7 +3,8 @@ import {
   addAnswerToUser,
   addQuestionToUser,
   fetchUsersData,
-  receiveUsersData
+  fetchUsersDataSuccess,
+  fetchUsersDataFail
 } from '../actions/users'
 import { UserState } from '../types/UsersTypes'
 
@@ -23,15 +24,19 @@ describe('users reducer', () => {
     }))).toEqual(stateAfterAddQuestion)
   })
   
-  it('should fetch the users data', () => {
+  it('should begin to fetch the users data', () => {
     expect(users(initState, fetchUsersData())).toEqual(stateAfterFetch)
   })
 
-  it('should receive the users data', () => {
-    expect(users(stateAfterFetch, receiveUsersData({
-      data: stateAfterReceive.data,
+  it('should fetch the users data successful and add data to state', () => {
+    expect(users(stateAfterFetch, fetchUsersDataSuccess({
+      data: stateAfterFetchSuccess.data,
       timestamp: 1598959830000
-    }))).toEqual(stateAfterReceive)
+    }))).toEqual(stateAfterFetchSuccess)
+  })
+
+  it('should fetch the users data failed and reset the isLoading', () => {
+    expect(users(stateAfterFetch, fetchUsersDataFail())).toEqual(stateAfterFetchFail)
   })
 
   it('should return the initial state', () => {
@@ -156,7 +161,7 @@ const stateAfterFetch: UserState = {
   }
 }
 
-const stateAfterReceive: UserState = {
+const stateAfterFetchSuccess: UserState = {
   isLoading: false,
   timestamp: 1598959830000,
   data: {
@@ -192,4 +197,9 @@ const stateAfterReceive: UserState = {
       questions: ['e6zhibfzy5qg0w4p425e']
     }
   }
+}
+
+const stateAfterFetchFail: UserState = {
+  ...stateAfterFetch,
+  isLoading: false
 }
