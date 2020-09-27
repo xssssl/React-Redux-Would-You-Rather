@@ -1,5 +1,9 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { 
+  BrowserRouter as Router,
+  Route, 
+  Switch
+ } from 'react-router-dom'
 import ConnectedNav from './Nav'
 import NewPoll from './NewPoll'
 import ConnectedLogin from './Login'
@@ -11,21 +15,23 @@ import '../styles/App.scss';
 
 const App: React.FC = (props: any) => {
   return (
-    <div className="App">
-      <ConnectedPrivateRoute defaultHomePath="/" authPath="/login"> 
-        <ConnectedNav />
+    <Router>
+      <div className="App">
+        <ConnectedPrivateRoute defaultHomePath="/" authPath="/login"> 
+          <ConnectedNav />
+          <Switch>
+            <Route path="/" exact><Home /></Route>
+            <Route path="/newpoll" exact><NewPoll /></Route>
+            <Route path="/leaderboard" exact><Leaderboard /></Route>
+            <Route><NoMatch /></Route>
+          </Switch>
+        </ConnectedPrivateRoute>
         <Switch>
-          <Route path="/" exact><Home /></Route>
-          <Route path="/newpoll" exact><NewPoll /></Route>
-          <Route path="/leaderboard" exact><Leaderboard /></Route>
-          <Route><NoMatch /></Route>
+          <Route path="/login" exact><ConnectedLogin /></Route>
+          {/* <Route path="/login" exact><NewPoll /></Route> */}
         </Switch>
-      </ConnectedPrivateRoute>
-      <Switch>
-        <Route path="/login" exact><ConnectedLogin /></Route>
-        {/* <Route path="/login" exact><NewPoll /></Route> */}
-      </Switch>
-    </div>
+      </div>
+    </Router>
   );
 }
 
