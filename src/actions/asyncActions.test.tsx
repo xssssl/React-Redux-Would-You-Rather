@@ -2,11 +2,13 @@ import configureMockStore from 'redux-mock-store'
 import { ThunkDispatch } from 'redux-thunk'
 import thunk from 'redux-thunk'
 import { handleFetchUsersData } from './users'
+import { handleFetchQuestionsData } from './questions'
 import { userLogin, handleUserLogin } from './userAuth'
-import { USERS_ACTION_TYPES } from './constants'
+import { USERS_ACTION_TYPES, QUESTIONS_ACTION_TYPES } from './constants'
 import { UserAction, UserState } from '../types/UsersTypes'
+import { QuestionAction, QuestionState } from '../types/QuestionsTypes'
 import { UserAuthAction, UserAuthState } from '../types/UserAuthTypes'
-import { users } from '../utils/_DATA'
+import { users, questions } from '../utils/_DATA'
 
 describe('async users actions', () => {
   it(`creates FETCH_USERS_DATA_SUCCESS when fetching data has been done`, () => {
@@ -58,7 +60,6 @@ describe('async users actions', () => {
   // })
 })
 
-
 describe('async userAuth actions', () => {
   it('should login user when async authentication has been done', () => {
     const middlewares = [thunk]
@@ -99,6 +100,35 @@ describe('async userAuth actions', () => {
     const store = mockStore(initState)
     return store.dispatch(handleUserLogin({ id: username, password: 'qwert'})).then(() => {
       expect(store.getActions()).toEqual(expectedActions)
+    })
+  })
+})
+
+describe('async questions actions', () => {
+  it(`creates FETCH_QUESTIONS_DATA_SUCCESS when fetching data has been done`, () => {
+    const middlewares = [thunk]
+    const mockStore = configureMockStore<
+      QuestionState, ThunkDispatch<QuestionState, unknown, QuestionAction>>(middlewares)
+      
+    const initState: QuestionState = { isLoading: false, data: {} }
+    const store = mockStore(initState)
+    const fetchQuestionsDataAction: QuestionAction = {
+      type: QUESTIONS_ACTION_TYPES.FETCH_QUESTIONS_DATA
+    }
+      
+    // should return the promise
+    return store.dispatch(handleFetchQuestionsData()).then(() => {
+      const mockActions = store.getActions()
+      const timestamp = mockActions[1].timestamp
+      const fetchQuestionsDataSuccessAction: QuestionAction = {
+        type: QUESTIONS_ACTION_TYPES.FETCH_QUESTIONS_DATA_SUCCESS,
+        timestamp,
+        data: {
+          ...questions
+        }
+      }
+      const expectedActionsWhenSuccess = [fetchQuestionsDataAction, fetchQuestionsDataSuccessAction]
+      expect(mockActions).toEqual(expectedActionsWhenSuccess)
     })
   })
 })

@@ -24,18 +24,18 @@ describe('users reducer', () => {
     }))).toEqual(stateAfterAddQuestion)
   })
   
-  it('should begin to fetch the users data', () => {
+  it('should begin to fetch users data', () => {
     expect(users(initState, fetchUsersData())).toEqual(stateAfterFetch)
   })
 
-  it('should fetch the users data successful and add data to state', () => {
+  it('should fetch users data successful and add data to state', () => {
     expect(users(stateAfterFetch, fetchUsersDataSuccess({
       data: stateAfterFetchSuccess.data,
       timestamp: 1598959830000
     }))).toEqual(stateAfterFetchSuccess)
   })
 
-  it('should fetch the users data failed and reset the isLoading', () => {
+  it('should fetch users data failed and reset isLoading', () => {
     expect(users(stateAfterFetch, fetchUsersDataFail())).toEqual(stateAfterFetchFail)
   })
 
