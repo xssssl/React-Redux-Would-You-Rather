@@ -34,3 +34,7 @@ export const saveAnswer = (
 export const userAuthentication = ({ id, password }: UserAuthenticationRequest): Promise<string> => {
   return _userAuthentication({ id, password })
 }
+
+// export const userLogout = ({ id, token }) => {
+
+// }

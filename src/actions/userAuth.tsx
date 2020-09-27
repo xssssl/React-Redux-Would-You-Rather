@@ -2,23 +2,23 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk'
 import { userAuthentication } from '../services/apis'
 import { UserAuthenticationRequest } from '../services/types'
 import { USERAUTH_ACTION_TYPES } from './constants'
-import { UserAuthAction, UserAuthState } from '../types/UserAuthTypes'
+import { UserLoginActionParams, UserAuthAction, UserAuthState } from '../types/UserAuthTypes'
 
-export const userLogin = (id: string): UserAuthAction => ({
+export const userLogin = ({id, token}: UserLoginActionParams): UserAuthAction => ({
   type: USERAUTH_ACTION_TYPES.LOGIN,
-  id
+  id,
+  token
 })
 
-export const userLogout = (id: string): UserAuthAction => ({
+export const userLogout = (): UserAuthAction => ({
   type: USERAUTH_ACTION_TYPES.LOGOUT,
-  id
 })
 
 export const handleUserLogin = ({ id, password }: UserAuthenticationRequest):
   ThunkAction<Promise<void>, UserAuthState, unknown, UserAuthAction> => {
     return (dispatch: ThunkDispatch<UserAuthState, unknown, UserAuthAction>): Promise<void> => {
-      return userAuthentication({ id, password }).then((AuthenticatedUserId) => {
-        AuthenticatedUserId && dispatch(userLogin(id))
-      }).catch(error => console.log(error))
+      return userAuthentication({ id, password }).then((token) => {
+        token && dispatch(userLogin({ id, token }))
+      }).catch(error => console.log('Error: ', error))
     }
 }

@@ -28,8 +28,8 @@ export const fetchUsersData = (): UserAction => ({
   type: USERS_ACTION_TYPES.FETCH_USERS_DATA
 })
 
-export const fetchUsersDataSuccess = ({
-    data, timestamp }: FetchDataSuccessActionParams): UserAction => ({
+export const fetchUsersDataSuccess = (
+  { data, timestamp }: FetchDataSuccessActionParams): UserAction => ({
   type: USERS_ACTION_TYPES.FETCH_USERS_DATA_SUCCESS,
   data,
   timestamp

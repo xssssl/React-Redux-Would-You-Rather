@@ -134,7 +134,9 @@ function generateUID(): string {
 
 export function _getUsers(): Promise<Users> {
   return new Promise((res, rej) => {
-    setTimeout(() => res({...users}), 1500 + Math.round(Math.random() * 1000))
+    setTimeout(() => {
+      res({...users})
+    }, 1500 + Math.round(Math.random() * 1000))
   })
 }
 
@@ -182,7 +184,7 @@ export function _saveQuestion (question: CreateQuestionRequest): Promise<Questio
       }
 
       res(formattedQuestion)
-    }, 1000)
+    }, 1000 + Math.round(Math.random() * 1000))
   })
 }
 
@@ -211,15 +213,15 @@ export function _saveQuestionAnswer ({ authedUser, qid, answer }: CreateAnswerRe
         }
       }
       res()
-    }, 500)
+    }, 500 + Math.round(Math.random() * 1000))
   })
 }
 
 export function _userAuthentication ({ id, password }: UserAuthenticationRequest): Promise<string> {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      if(password && Object.keys(users).indexOf(id) >= 0) res(id)
-      else res('')
-    }, 1000)
+      if(password && Object.keys(users).indexOf(id) >= 0) res(generateUID())
+      else rej('Invalid user')
+    }, 1000 + Math.round(Math.random() * 1000))
   }) 
 }
