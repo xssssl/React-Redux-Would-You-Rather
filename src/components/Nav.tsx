@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { userLogout } from '../actions/userAuth'
 import { UserAuthAction } from '../types/UserAuthTypes'
-import { RootState } from '../types/RootState'
+import RootState from '../types/RootState'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import brandLogo from '../assets/logo1.png'
@@ -50,7 +50,7 @@ const Nav: React.FC = (props: any) => {
 }
 
 const mapStateToProps = (state: RootState): NavState => ({
-    name: state.users[state.userAuth.id].name
+    name: state.users.data[state.userAuth.id].name
 })
 
 const  mapDispatchToProps: ActionCreatorsMapObject<UserAuthAction> = { userLogout }

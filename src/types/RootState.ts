@@ -1,7 +1,11 @@
 import { UserAuthState } from './UserAuthTypes'
-import { UsersState } from './UsersTypes'
+import { UserState } from './UsersTypes'
+import { QuestionState } from './QuestionsTypes'
 
-export type RootState = {
+type RootState = {
   userAuth: UserAuthState,
-  users: UsersState
+  users: UserState,
+  questions: QuestionState
 }
+
+export default RootState

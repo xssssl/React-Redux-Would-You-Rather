@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { handleFetchUsersData } from '../actions/users'
 import { handleUserLogin } from '../actions/userAuth'
 import Select, { SelectOptions } from './Select'
-import { RootState } from '../types/RootState'
+import { UserState } from '../types/UsersTypes'
+import RootState from '../types/RootState'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
 import MainImg from '../assets/main.png'
 
-const Login: React.FC = (props: any) => {
-  const { users } = props
+export const Login: React.FC = (props: any) => {
+  const { users }: {users: UserState} = props
   const { handleFetchUsersData, handleUserLogin } = props
 
   // optionValue should be '' if you want to use custom-select validation
@@ -20,8 +21,8 @@ const Login: React.FC = (props: any) => {
 
   const [password, setPassword] = useState('')
   const [isLoginAttempt, setIsLoginAttemp] = useState(false)
-  const [isValidUsername, setIsValidUsername] = useState(true)
-  const [isValidPassword, setIsValidPassword] = useState(true)
+  const [isValidUsername, setIsValidUsername] = useState(false)
+  const [isValidPassword, setIsValidPassword] = useState(false)
 
   useEffect(() => {
     console.log('Fetching initial user data ...')
@@ -29,13 +30,13 @@ const Login: React.FC = (props: any) => {
   }, [])
 
   useEffect(() => {
-    const usernameList = Object.keys(users)
+    const usernameList = Object.keys(users.data)
     let currentOptions: SelectOptions = usernameList.map(item => {
       const capitalizedItem = item.replace(/^\S/, s => s.toUpperCase())
       return {optionValue: item, optionText: capitalizedItem}
     })
     setSelectOptions([...initSelectOptions, ...currentOptions])
-  }, [users])
+  }, [users.data])
 
   const handleSelectOnChange = (e: BaseSyntheticEvent): void => {
     const selectedUserId = e.currentTarget.value
@@ -46,7 +47,7 @@ const Login: React.FC = (props: any) => {
   const handlePasswordOnChange = (e: BaseSyntheticEvent): void => {
     const passwordInput = e.target.value
     setPassword(passwordInput)
-    isLoginAttempt && setIsValidPassword(passwordValidation(passwordInput))
+    setIsValidPassword(passwordValidation(passwordInput))
   }
 
   const handleOnClick = (e: BaseSyntheticEvent): void => {
@@ -72,9 +73,9 @@ const Login: React.FC = (props: any) => {
             <div className="card-body">
               <form className={isLoginAttempt ? "was-validated" : ""} > 
                 <div className="form-group">
-                  <label htmlFor="LoginUsername">Username</label>
+                  <label htmlFor="loginUsername">Username</label>
                   <Select 
-                    id="LoginUsername" 
+                    id="loginUsername" 
                     className="custom-select"
                     defaultValue={initSelectOptions[0].optionValue}
                     options={selectOptions}
@@ -89,11 +90,12 @@ const Login: React.FC = (props: any) => {
                   </small>
                 </div>
                 <div className="form-group">
-                  <label htmlFor="LoginPassword">Password</label>
+                  <label htmlFor="loginPassword">Password</label>
                   <input 
                     type="password" 
-                    className={"form-control" + (isValidPassword ? "" : " is-invalid")}
-                    id="LoginPassword" 
+                    // className={"form-control" + (isValidPassword ? "" : " is-invalid")}
+                    className="form-control"
+                    id="loginPassword" 
                     placeholder="password" 
                     onChange={(e: BaseSyntheticEvent) => handlePasswordOnChange(e)}
                     required
@@ -110,6 +112,8 @@ const Login: React.FC = (props: any) => {
                     <button 
                       type="submit" 
                       className="btn btn-primary btn-block" 
+                      id='loginBtn'
+                      data-testid='loginBtn'
                       onClick={(e: BaseSyntheticEvent) => handleOnClick(e)}>Login</button>
                   </Link>
                 </div>

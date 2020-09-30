@@ -1,7 +1,7 @@
 import React, { useRef, ReactNode, FunctionComponent, MutableRefObject, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect, useLocation } from 'react-router-dom'
-import { RootState } from '../types/RootState'
+import RootState from '../types/RootState'
 
 interface PrivateRouteProps {
   isAuthenticated: boolean,
