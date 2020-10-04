@@ -16,7 +16,6 @@ export const userLogout = (): UserAuthAction => ({
 
 export const handleUserLogin = ({ id, password }: UserAuthenticationRequest):
   ThunkAction<Promise<void>, UserAuthState, unknown, UserAuthAction> => {
-    console.log('From handleUserLogin: loginBtn is pressed')
     return (dispatch: ThunkDispatch<UserAuthState, unknown, UserAuthAction>): Promise<void> => {
       return userAuthentication({ id, password }).then((token) => {
         token && dispatch(userLogin({ id, token }))

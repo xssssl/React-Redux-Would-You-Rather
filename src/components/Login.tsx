@@ -8,7 +8,6 @@ import { UserState } from '../types/UsersTypes'
 import RootState from '../types/RootState'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
-import MainImg from '../assets/main.png'
 
 export const Login: React.FC = (props: any) => {
   const { users }: {users: UserState} = props
@@ -27,6 +26,8 @@ export const Login: React.FC = (props: any) => {
   useEffect(() => {
     console.log('Fetching initial user data ...')
     handleFetchUsersData()
+    // console.log('Fetching initial questions data ...')
+    // handleFetchQuestionsData()
   }, [])
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export const Login: React.FC = (props: any) => {
       <div className="row mt-5">
         <div className="col-sm-4 offset-sm-4">
           <div className="card">
-            <img src={MainImg} className="card-img-top" alt="would you rather question"></img>
+            <img src='/assets/main.png' className="card-img-top" alt="would you rather question"></img>
             <div className="card-body">
               <form className={isLoginAttempt ? "was-validated" : ""} > 
                 <div className="form-group">

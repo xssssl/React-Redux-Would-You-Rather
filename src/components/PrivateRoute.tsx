@@ -1,26 +1,30 @@
 import React, { useRef, ReactNode, FunctionComponent, MutableRefObject, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { Route, Redirect, useLocation } from 'react-router-dom'
+import { handleFetchQuestionsData } from '../actions/questions'
 import RootState from '../types/RootState'
 
-interface PrivateRouteProps {
-  isAuthenticated: boolean,
+interface PrivateRoutePropsFromParent {
   defaultHomePath: string,
   authPath: string,
   children?: ReactNode
 }
+
+type PrivateRouteProps = PrivateRoutePropsFromParent & PrivateRoutePropsFromRedux
 
 const PrivateRoute: FunctionComponent<PrivateRouteProps> = (props) => {
   const { 
     isAuthenticated, 
     defaultHomePath, 
     authPath, 
-    children, 
+    children,
+    handleFetchQuestionsData, 
     ...rest 
   } = props
 
   useEffect(() => {
-    isAuthenticated && console.log('PrivateRoute useEffect')
+    console.log('Fetching initial question data ...')
+    handleFetchQuestionsData()
   }, [isAuthenticated])
 
   const location = useLocation()
@@ -43,8 +47,12 @@ const mapStateToProps = (state: RootState) => ({
   isAuthenticated: state.userAuth.isAuthenticated
 })
 
-// const mapDispatchToProps = {  }
+const mapDispatchToProps = { handleFetchQuestionsData }
 
-const ConnectedPrivateRoute = connect(mapStateToProps)(PrivateRoute)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PrivateRoutePropsFromRedux = ConnectedProps<typeof connector>
+
+const ConnectedPrivateRoute = connector(PrivateRoute)
 
 export default ConnectedPrivateRoute

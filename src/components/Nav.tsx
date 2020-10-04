@@ -7,7 +7,6 @@ import { UserAuthAction } from '../types/UserAuthTypes'
 import RootState from '../types/RootState'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap'
-import brandLogo from '../assets/logo1.png'
 
 interface NavState {
   name: string
@@ -24,7 +23,7 @@ const Nav: React.FC = (props: any) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-info">
       <NavLink className="navbar-brand" to="/">
-        <img src={brandLogo} width="40" height="40" alt="would you rather" 
+        <img src='/assets/logo1.png' width="40" height="40" alt="would you rather" 
           loading="lazy" />
       </NavLink>
       <button className="navbar-toggler" type="button" data-toggle="collapse" 
