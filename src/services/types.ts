@@ -37,10 +37,12 @@ export interface CreateQuestionRequest {
   author: string
 }
 
+export type Answer = 'optionOne' | 'optionTwo'
+
 export interface CreateAnswerRequest {
   authedUser: string,
   qid: string,
-  answer: 'optionOne' | 'optionTwo'
+  answer: Answer
 }
 
 export interface UserAuthenticationRequest {

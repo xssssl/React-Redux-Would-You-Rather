@@ -1,8 +1,8 @@
 import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
-interface ProgressBarProps {
+export interface ProgressBarProps {
   obtainedVotes: number,
   totalVotes: number
 }
@@ -13,7 +13,7 @@ const ProgressBar: React.FC<ProgressBarProps> = (props: any) => {
   return (
     <>
       <div className="progress mb-3" style={{height: '35px'}}>
-        <div className="progress-bar bg-success" 
+        <div className="progress-bar bg-success pt-2" 
           role="progressbar" 
           style={{width: progressWidth + '%'}} 
           aria-valuenow={progressWidth} 

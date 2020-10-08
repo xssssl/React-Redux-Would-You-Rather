@@ -1,6 +1,6 @@
 import React from 'react'
 import RankingList from './RankingList'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
 const Leaderboard: React.FC = (props: any) => {

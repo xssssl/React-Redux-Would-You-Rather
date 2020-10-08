@@ -11,7 +11,12 @@ import Home from './Home'
 import Leaderboard from './Leaderboard'
 import NoMatch from './NoMatch'
 import ConnectedPrivateRoute from './PrivateRoute'
+import ConnectedPoll from './Poll'
 import '../styles/App.scss';
+
+interface QueryString {
+  qid: string
+}
 
 const App: React.FC = (props: any) => {
   return (
@@ -23,6 +28,7 @@ const App: React.FC = (props: any) => {
             <Route path="/" exact><Home /></Route>
             <Route path="/newpoll" exact><NewPoll /></Route>
             <Route path="/leaderboard" exact><Leaderboard /></Route>
+            <Route path="/poll/:qid" exact><ConnectedPoll /></Route>
             <Route><NoMatch /></Route>
           </Switch>
         </ConnectedPrivateRoute>

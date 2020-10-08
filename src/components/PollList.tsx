@@ -1,24 +1,25 @@
 import React from 'react'
 import { connect, ConnectedProps } from 'react-redux'
-import Poll, { PollProps } from './Poll'
+import PollCard, { PollCardProps } from './PollCard'
+import { formatAskedTime } from './PollFrame'
 import RootState from '../types/RootState'
 import { Users, Question } from '../services/types'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
 interface PollListPropsFromParent {
   isAnswered: boolean
 }
 
-export type PollListPropsFromReduxState = Omit<PollProps, 'isAnswered'>
+export type PollListPropsFromReduxState = Omit<PollCardProps, 'isAnswered'>
 
 const PollList: React.FC<PollListProps> = (props: PollListProps) => {
   const { isAnswered } = props 
   const polls = props.polls
   return (
     <>
-      { polls.map((pollProps: PollListPropsFromReduxState) => {
-          return <Poll key={pollProps.questionId} isAnswered={isAnswered} {...pollProps} />
+      { polls.map((pollCardProps: PollListPropsFromReduxState) => {
+          return <PollCard key={pollCardProps.questionId} isAnswered={isAnswered} {...pollCardProps} />
         }
       )}
     </>
@@ -37,24 +38,6 @@ export const sortByTimestampDesc = (questionsList: Array<Question>): Array<Quest
     else if(timestampX > timestampY) return -1
     else return 0
   })
-}
-
-export const formatAskedTime = (askedTimestamp: number, currentTimestamp: number = Date.now()): string => {
-  const timestampDiffInSeconds: number = Math.ceil((currentTimestamp - askedTimestamp) / 1000)
-  const days = Math.floor(timestampDiffInSeconds / 3600 / 24)
-  const hours = Math.floor(timestampDiffInSeconds / 3600)
-  const minutes = Math.floor(timestampDiffInSeconds / 60)
-  var askedTime: string = ''
-  if(days) {
-    askedTime = days + ((days - 1) ? ' days' : ' day')
-  } else if(hours) {
-    askedTime = hours + ((hours - 1) ? ' hours' : ' hour')
-  } else if(minutes) {
-    askedTime = minutes + ((minutes - 1) ? ' minutes' : ' minute')
-  } else {
-    askedTime = '1 minute'
-  }
-  return askedTime
 }
 
 export const formatPollProps = (authorizedUserId: string, question: Question, 

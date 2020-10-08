@@ -6,7 +6,7 @@ import { handleUserLogin } from '../actions/userAuth'
 import Select, { SelectOptions } from './Select'
 import { UserState } from '../types/UsersTypes'
 import RootState from '../types/RootState'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
 export const Login: React.FC = (props: any) => {
@@ -132,6 +132,8 @@ const mapStateToProps = (state: RootState) => ({
 })
 
 const  mapDispatchToProps = { handleFetchUsersData, handleUserLogin }
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
 
 const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
 

@@ -182,7 +182,6 @@ export function _saveQuestion (question: CreateQuestionRequest): Promise<Questio
           questions: users[authedUser].questions.concat([formattedQuestion.id])
         }
       }
-
       res(formattedQuestion)
     }, 1000 + Math.round(Math.random() * 1000))
   })

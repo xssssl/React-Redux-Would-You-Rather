@@ -4,9 +4,10 @@ import thunk from 'redux-thunk'
 import { handleFetchUsersData } from './users'
 import { handleFetchQuestionsData } from './questions'
 import { userLogin, handleUserLogin } from './userAuth'
+import { handleAddAnswer, handleAddQuestion, UserQuestionCombinedState } from './shared'
 import { USERS_ACTION_TYPES, QUESTIONS_ACTION_TYPES } from './constants'
-import { UserAction, UserState } from '../types/UsersTypes'
-import { QuestionAction, QuestionState } from '../types/QuestionsTypes'
+import { AddAnswerAction, AddQuestionAction as AddQuestionToUserAction, UserAction, UserState } from '../types/UsersTypes'
+import { AddVoteAction, AddQuestionAction, QuestionAction, QuestionState } from '../types/QuestionsTypes'
 import { UserAuthAction, UserAuthState } from '../types/UserAuthTypes'
 import { users, questions } from '../utils/_DATA'
 
@@ -129,6 +130,143 @@ describe('async questions actions', () => {
       }
       const expectedActionsWhenSuccess = [fetchQuestionsDataAction, fetchQuestionsDataSuccessAction]
       expect(mockActions).toEqual(expectedActionsWhenSuccess)
+    })
+  })
+})
+
+describe('async both users and questions shared actions', () => {
+  it('creates both ADD_ANSWER and ADD_VOTE actions', () => {
+    const middlewares = [thunk]
+    const mockStore = configureMockStore<UserQuestionCombinedState, 
+      ThunkDispatch<UserQuestionCombinedState, unknown, UserAction | QuestionAction>>(middlewares)
+      
+    const initState: UserQuestionCombinedState = {
+      users: {
+        isLoading: false,
+        timestamp: 1598956230000,
+        data: {
+          johndoe: {
+            id: 'johndoe',
+            name: 'John Doe',
+            avatarURL: '/assets/avatar1.png',
+            answers: {
+              "xj352vofupe1dqz9emx13r": 'optionOne',
+              "vthrdm985a262al8qx3do": 'optionTwo',
+              "6ni6ok3ym7mf1p33lnez": 'optionTwo'
+            },
+            questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
+          }
+        }
+      },
+      questions: {
+        isLoading: false,
+        timestamp: 1598956230000,
+        data: {
+          "8xf0y6ziyjabvozdd253nd": {
+            id: '8xf0y6ziyjabvozdd253nd',
+            author: 'sarahedo',
+            timestamp: 1599732000000,
+            optionOne: {
+              votes: ['sarahedo'],
+              text: 'have horrible short term memory',
+            },
+            optionTwo: {
+              votes: [],
+              text: 'have horrible long term memory'
+            }
+          }
+        }
+      }
+    }
+    const store = mockStore(initState)
+    const addAnswerAction: AddAnswerAction = {
+      type: USERS_ACTION_TYPES.ADD_ANSWER,
+      authedUser: 'johndoe',
+      qid: '8xf0y6ziyjabvozdd253nd',
+      answer: 'optionTwo'
+    }
+    const addVoteAction: AddVoteAction = {
+      type: QUESTIONS_ACTION_TYPES.ADD_VOTE,
+      authedUser: 'johndoe',
+      qid: '8xf0y6ziyjabvozdd253nd',
+      answer: 'optionTwo'
+    }
+    const expectedActionsWhenSuccess = [addAnswerAction, addVoteAction]
+      
+    // should return the promise
+    return store.dispatch(handleAddAnswer({
+      authedUser: 'johndoe',
+      qid: '8xf0y6ziyjabvozdd253nd',
+      answer: 'optionTwo'
+     })).then(() => {
+      expect(store.getActions()).toEqual(expectedActionsWhenSuccess)
+    })
+  })
+
+  it('creates ADD_QUESTION action in both users and questions', () => {
+    const middlewares = [thunk]
+    const mockStore = configureMockStore<UserQuestionCombinedState, 
+      ThunkDispatch<UserQuestionCombinedState, unknown, UserAction | QuestionAction>>(middlewares)
+      
+    const initState: UserQuestionCombinedState = {
+      users: {
+        isLoading: false,
+        timestamp: 1598956230000,
+        data: {
+          johndoe: {
+            id: 'johndoe',
+            name: 'John Doe',
+            avatarURL: '/assets/avatar1.png',
+            answers: {
+              "xj352vofupe1dqz9emx13r": 'optionOne',
+              "vthrdm985a262al8qx3do": 'optionTwo',
+              "6ni6ok3ym7mf1p33lnez": 'optionTwo'
+            },
+            questions: ['6ni6ok3ym7mf1p33lnez', 'xj352vofupe1dqz9emx13r'],
+          }
+        }
+      },
+      questions: {
+        isLoading: false,
+        timestamp: 1598956230000,
+        data: {}
+      }
+    }
+    const store = mockStore(initState)
+    
+    // should return the promise
+    return store.dispatch(handleAddQuestion({
+      optionOneText: 'have horrible short term memory',
+      optionTwoText: 'have horrible long term memory',
+      author: 'johndoe'
+    })).then(() => {
+      const storeActions = store.getActions()
+      const qid = storeActions[0].qid
+      const timestamp = storeActions[1].question.timestamp
+
+      const addQuestionToUserAction: AddQuestionToUserAction = {
+        type: USERS_ACTION_TYPES.ADD_QUESTION,
+        authedUser: 'johndoe',
+        qid: qid
+      }
+      const addQuestionAction: AddQuestionAction = {
+        type: QUESTIONS_ACTION_TYPES.ADD_QUESTION,
+        question: {
+          id: qid,
+          author: 'johndoe',
+          timestamp: timestamp,
+          optionOne: {
+            votes: [],
+            text: 'have horrible short term memory',
+          },
+          optionTwo: {
+            votes: [],
+            text: 'have horrible long term memory'
+          }
+        }
+      }
+      const expectedActionsWhenSuccess = [addQuestionToUserAction, addQuestionAction]
+      expect(store.getActions()).toEqual(expectedActionsWhenSuccess)
     })
   })
 })

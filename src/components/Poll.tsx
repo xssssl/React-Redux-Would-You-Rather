@@ -1,37 +1,99 @@
 import React from 'react'
-import PollFrame from './PollFrame'
-import Question from './Question'
-import { PollFrameComponentProps } from './PollFrame'
-import  { QuestionProps } from './Question'
-import 'bootstrap/dist/css/bootstrap.css'
+import { ConnectedProps, connect } from 'react-redux'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import PollFrame, { PollFrameComponentProps, formatAskedTime } from './PollFrame'
+import { handleAddAnswer } from '../actions/shared'
+import Vote from './Vote'
+import OptionResult from './OptionResult'
+import RootState from '../types/RootState'
+import { Question } from '../services/types'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
-export type PollProps = PollFrameComponentProps & QuestionProps
+const Poll: React.FC<PollPropsFromRedux> = (props) => {
+  const { displayedAuthor, avatarURL, askedTime } = props
+  const { isAnswered, authedUser, qid, question } = props
+  const { handleAddAnswer } = props
 
-const Poll: React.FC<PollProps> = (props: PollProps) => {
-  const { 
-    displayedAuthor, 
-    avatarURL, 
-    askedTime, 
-    isAnswered, 
-    questionId, 
-    optionOneText, 
-    optionTwoText 
-  } = props
+  const optionOneText = question.optionOne.text
+  const optionTwoText = question.optionTwo.text
+
   return (
-    <PollFrame 
-      displayedAuthor={displayedAuthor}
-      avatarURL={avatarURL} 
-      askedTime={askedTime}
-    >
-      <Question 
-        isAnswered={isAnswered} 
-        questionId={questionId}
-        optionOneText={optionOneText}
-        optionTwoText={optionTwoText}
-      />
-    </PollFrame>
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-sm-6 offset-sm-3 mt-3">
+          <PollFrame 
+            displayedAuthor={displayedAuthor}
+            avatarURL={avatarURL}
+            askedTime={askedTime}
+          >
+            {
+              isAnswered
+                ? <OptionResult 
+                    isVoteOptionOne={!!~question.optionOne.votes.indexOf(authedUser)}
+                    optionOneText={optionOneText}
+                    optionOneVotes={{
+                      obtainedVotes: question.optionOne.votes.length, 
+                      totalVotes: question.optionOne.votes.length + question.optionTwo.votes.length
+                    }}
+                    optionTwoText={optionTwoText}
+                    optionTwoVotes={{
+                      obtainedVotes: question.optionTwo.votes.length,
+                      totalVotes: question.optionOne.votes.length + question.optionTwo.votes.length
+                    }}
+                  />
+                : <Vote
+                    authedUser={authedUser}
+                    qid={qid}
+                    optionOneText={optionOneText}
+                    optionTwoText={optionTwoText}
+                    handleAddAnswer={handleAddAnswer}
+                  />
+            }
+          </PollFrame>
+        </div>
+      </div>
+    </div>
   )
 }
 
-export default Poll
+interface QueryString {
+  qid: string
+}
+
+export type mapStateToPropsType = PollFrameComponentProps & {
+  authedUser: string,
+  qid: string,
+  question: Question,
+  isAnswered: boolean
+}
+
+const mapStateToProps = (state: RootState, 
+    ownProps: RouteComponentProps<QueryString>): mapStateToPropsType => {
+  const { qid } = ownProps.match.params
+  const authedUser = state.userAuth.id
+  const question = state.questions.data[qid]
+  
+  return {
+    isAnswered: !!~(question.optionOne.votes.concat(question.optionTwo.votes).indexOf(authedUser)),
+    authedUser,
+    question,
+    qid: qid,
+    displayedAuthor: (authedUser === question.author) ? 'You' : state.users.data[question.author].name,
+    avatarURL: state.users.data[question.author].avatarURL,
+    askedTime: formatAskedTime(question.timestamp)
+  }
+}
+
+const mapDispatchToProps = { handleAddAnswer }
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PollPropsFromRedux = ConnectedProps<typeof connector>
+
+const ConnectedPoll = withRouter(connector(Poll))
+
+export default ConnectedPoll
+
+
+

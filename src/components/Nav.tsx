@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 import { userLogout } from '../actions/userAuth'
 import { UserAuthAction } from '../types/UserAuthTypes'
 import RootState from '../types/RootState'
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
 interface NavState {
