@@ -1,5 +1,5 @@
 import React, { useState, useEffect, BaseSyntheticEvent } from 'react'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { handleFetchUsersData } from '../actions/users'
 import { handleUserLogin } from '../actions/userAuth'
@@ -9,7 +9,7 @@ import RootState from '../types/RootState'
 import 'bootstrap/scss/bootstrap.scss'
 import 'bootstrap/dist/js/bootstrap'
 
-export const Login: React.FC = (props: any) => {
+export const Login: React.FC<LoginPropsFromRedux> = (props) => {
   const { users }: {users: UserState} = props
   const { handleFetchUsersData, handleUserLogin } = props
 
@@ -115,7 +115,10 @@ export const Login: React.FC = (props: any) => {
                       className="btn btn-primary btn-block" 
                       id='loginBtn'
                       data-testid='loginBtn'
-                      onClick={(e: BaseSyntheticEvent) => handleOnClick(e)}>Login</button>
+                      onClick={(e: BaseSyntheticEvent) => handleOnClick(e)}
+                    >
+                        Login
+                    </button>
                   </Link>
                 </div>
               </form>
@@ -135,6 +138,8 @@ const  mapDispatchToProps = { handleFetchUsersData, handleUserLogin }
 
 const connector = connect(mapStateToProps, mapDispatchToProps)
 
-const ConnectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login)
+type LoginPropsFromRedux = ConnectedProps<typeof connector>
+
+const ConnectedLogin = connector(Login)
 
 export default ConnectedLogin

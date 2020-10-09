@@ -13,11 +13,19 @@ export const addVote: ActionCreator<Action<string>> = (
   answer
 })
 
-export const addQuestion: ActionCreator<Action<string>> = (
-  question: Question): QuestionAction => ({
-  type: QUESTIONS_ACTION_TYPES.ADD_QUESTION,
-  question
-})
+// export const addQuestion: ActionCreator<Action<string>> = (
+//   question: Question): QuestionAction => ({
+//   type: QUESTIONS_ACTION_TYPES.ADD_QUESTION,
+//   question
+// })
+
+export const addQuestion = (
+  question: Question): QuestionAction => {
+  return {
+    type: QUESTIONS_ACTION_TYPES.ADD_QUESTION,
+    question
+  }
+}
 
 export const fetchQuestionsData = (): QuestionAction => ({
   type: QUESTIONS_ACTION_TYPES.FETCH_QUESTIONS_DATA

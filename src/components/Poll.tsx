@@ -61,7 +61,7 @@ interface QueryString {
   qid: string
 }
 
-export type mapStateToPropsType = PollFrameComponentProps & {
+export type MapStateToPropsType = PollFrameComponentProps & {
   authedUser: string,
   qid: string,
   question: Question,
@@ -69,7 +69,7 @@ export type mapStateToPropsType = PollFrameComponentProps & {
 }
 
 const mapStateToProps = (state: RootState, 
-    ownProps: RouteComponentProps<QueryString>): mapStateToPropsType => {
+    ownProps: RouteComponentProps<QueryString>): MapStateToPropsType => {
   const { qid } = ownProps.match.params
   const authedUser = state.userAuth.id
   const question = state.questions.data[qid]

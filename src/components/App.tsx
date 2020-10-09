@@ -5,7 +5,7 @@ import {
   Switch
  } from 'react-router-dom'
 import ConnectedNav from './Nav'
-import NewPoll from './NewPoll'
+import ConnectedNewPoll from './NewPoll'
 import ConnectedLogin from './Login'
 import Home from './Home'
 import Leaderboard from './Leaderboard'
@@ -26,7 +26,7 @@ const App: React.FC = (props: any) => {
           <ConnectedNav />
           <Switch>
             <Route path="/" exact><Home /></Route>
-            <Route path="/newpoll" exact><NewPoll /></Route>
+            <Route path="/newpoll" exact><ConnectedNewPoll /></Route>
             <Route path="/leaderboard" exact><Leaderboard /></Route>
             <Route path="/poll/:qid" exact><ConnectedPoll /></Route>
             <Route><NoMatch /></Route>
