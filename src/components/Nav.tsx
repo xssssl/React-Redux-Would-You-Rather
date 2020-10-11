@@ -1,6 +1,6 @@
 import React from 'react'
 import { ActionCreatorsMapObject } from 'redux'
-import { connect } from 'react-redux'
+import { connect, ConnectedProps } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { userLogout } from '../actions/userAuth'
 import { UserAuthAction } from '../types/UserAuthTypes'
@@ -12,7 +12,7 @@ interface NavState {
   name: string
 }
 
-const Nav: React.FC = (props: any) => {
+const Nav: React.FC<NavPropsFromRedux> = (props) => {
   const { name }: NavState = props
   const { userLogout }: ActionCreatorsMapObject<UserAuthAction> = props
 
@@ -39,7 +39,11 @@ const Nav: React.FC = (props: any) => {
         </div>
         <div className="navbar-nav">
           {/* <NavLink className="nav-link" to="/login">James Logout</NavLink> */}
-          <button className="nav-link btn text-left" onClick={handleLogout}>
+          <button 
+            className="nav-link btn text-left" 
+            id='logoutBtn'
+            onClick={handleLogout}
+          >
             {name + ', Logout'}
           </button>
         </div>
@@ -54,6 +58,10 @@ const mapStateToProps = (state: RootState): NavState => ({
 
 const  mapDispatchToProps: ActionCreatorsMapObject<UserAuthAction> = { userLogout }
 
-const ConnectedNav = connect(mapStateToProps, mapDispatchToProps)(Nav)
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type NavPropsFromRedux = ConnectedProps<typeof connector>
+
+const ConnectedNav = connector(Nav)
 
 export default ConnectedNav

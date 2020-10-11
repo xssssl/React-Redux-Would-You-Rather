@@ -94,6 +94,3 @@ type PollPropsFromRedux = ConnectedProps<typeof connector>
 const ConnectedPoll = withRouter(connector(Poll))
 
 export default ConnectedPoll
-
-
-

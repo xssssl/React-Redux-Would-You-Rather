@@ -17,7 +17,7 @@ const NewPoll: React.FC<NewPollPropsFromRedux> = (props) => {
   const [isVoteAttempt, setIsVoteAttempt] = useState(false)
 
   const isValidOption = (optionText: string) => {
-    const re = /^[\w\s]{5,64}$/
+    const re = /^[\s\S]{5,64}$/
     return re.test(optionText)
   }
 
@@ -47,7 +47,7 @@ const NewPoll: React.FC<NewPollPropsFromRedux> = (props) => {
                 id="NewPollOptionOne" 
                 placeholder="Option One" 
                 onChange={(event) => setOptionOneText(event.target.value)}
-                pattern="^[\w\s]{5,64}$"
+                pattern="^[\s\S]{5,64}$"
                 required
               />
               <div className="invalid-feedback">
@@ -62,7 +62,7 @@ const NewPoll: React.FC<NewPollPropsFromRedux> = (props) => {
                 id="NewPollOptionTwo" 
                 placeholder="Option Two" 
                 onChange={(event) => setOptionTwoText(event.target.value)}
-                pattern="^[\w\s]{5,64}$"
+                pattern="^[\s\S]{5,64}$"
                 required
               />
               <div className="invalid-feedback">
@@ -76,6 +76,7 @@ const NewPoll: React.FC<NewPollPropsFromRedux> = (props) => {
                     type="submit"
                     className="btn btn-info btn-block"
                     id='createNewPollBtn'
+                    data-testid='createNewPollBtn'
                     onClick={(e: BaseSyntheticEvent) => handleOnClick(e)}
                   >
                     <FontAwesomeIcon icon={faPlusSquare} /> Create

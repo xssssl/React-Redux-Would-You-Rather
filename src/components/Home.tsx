@@ -10,14 +10,6 @@ const Home: React.FC = (props: any) => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-sm-6 offset-sm-3 mt-3">
-          {/* <ul className="nav nav-tabs">
-            <li className="nav-item">
-              <a className="nav-link active" data-toggle="tab" role="tab" href="#answered-polls">Unanswered</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" data-toggle="tab" role="tab" href="#unanswered-polls">Answered</a>
-            </li>
-          </ul> */}
           <Tabs>
             <TabList>
               <Tab>Unanswered</Tab>
