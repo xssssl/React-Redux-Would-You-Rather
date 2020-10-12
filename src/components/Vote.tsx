@@ -43,7 +43,8 @@ const Vote: React.FC<VoteProps> = (props) => {
             className="form-check-input" 
             type="radio" 
             name="voteOptionRadios" 
-            id="optionOneRadio" 
+            id="optionOneRadio"
+            data-testid="optionOneRadio"
             value={OPTION_VALUE.OPTION_ONE}
             defaultChecked
             onChange={event => setSelectedOption(event.target.value)} 
@@ -57,7 +58,8 @@ const Vote: React.FC<VoteProps> = (props) => {
             className="form-check-input" 
             type="radio" 
             name="voteOptionRadios" 
-            id="optionTwoRadio" 
+            id="optionTwoRadio"
+            data-testid="optionTwoRadio"
             value={OPTION_VALUE.OPTION_TWO}
             onChange={event => setSelectedOption(event.target.value)} 
           />

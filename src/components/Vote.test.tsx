@@ -29,4 +29,28 @@ describe('component Vote', () => {
     fireEvent.click(voteBtn)
     expect(handleAddAnswer).toBeCalledTimes(1)
   })
+
+  test('radio', () => {
+    const handleAddAnswer = jest.fn()
+    const voteTestingProps = {
+      authedUser: 'Michale Jackson',
+      qid: 'abcd1234',
+      optionOneText: 'be a famous inventor',
+      optionTwoText: 'be a famous writer',
+      // handleAddAnswer: (arg: CreateAnswerRequest) => new Promise<void>(() => {})
+      handleAddAnswer: handleAddAnswer
+    }
+    render(
+      <Vote {...voteTestingProps} />
+    )
+    const optionOneRadio = screen.getByTestId('optionOneRadio')
+    const optionTwoRadio = screen.getByTestId('optionTwoRadio')
+
+    expect(optionOneRadio).toBeTruthy()
+    expect(optionTwoRadio).toBeTruthy()
+    fireEvent.click(optionTwoRadio)
+    expect(optionTwoRadio).toBeChecked()
+    fireEvent.click(optionOneRadio)
+    expect(optionOneRadio).toBeChecked()
+  })
 })
