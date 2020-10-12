@@ -32,14 +32,21 @@ The project is a **responsive web application**. Most of codes are written in Ty
   * Jest
   * ESLint
   * Prettier
-  
+
 ## Functions
 
 The project is a [Would You Rather](https://en.wikipedia.org/wiki/Would_you_rather) game which allow user to login/logout, post new polls and answer polls.
 
+### Login
 ![screenshot login](https://github.com/xssssl/React-Redux-Would-You-Rather/blob/master/screenshots/login_composition.png)
+
+### Home
 ![screenshot home](https://github.com/xssssl/React-Redux-Would-You-Rather/blob/master/screenshots/home_composition.png)
+
+### New Poll
 ![screenshot newpoll](https://github.com/xssssl/React-Redux-Would-You-Rather/blob/master/screenshots/newpoll_composition.png)
+
+### Leaderboard
 ![screenshot leaderboard](https://github.com/xssssl/React-Redux-Would-You-Rather/blob/master/screenshots/leaderboard_composition.png)
   
 ## How to run
