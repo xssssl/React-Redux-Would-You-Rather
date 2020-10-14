@@ -7,7 +7,7 @@ cache:
   directories:
   - node_modules
 env:
-  - S3_BUCKET = "react-redux-would-you-rather"
+  - S3_BUCKET = react-redux-would-you-rather
 jobs:
   include:
     - stage: test
