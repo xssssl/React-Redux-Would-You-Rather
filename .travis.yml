@@ -7,6 +7,8 @@ cache:
   directories:
   - node_modules
 env:
+  global:
+    - CI: false   # otherwise build will fail if there are warnings
   jobs:
     - S3_BUCKET: react-redux-would-you-rather
 jobs:
