@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+  - node_modules
+env:
+  jobs:
+    - S3_BUCKET = "react-redux-would-you-rather"
+jobs:
+  include:
+    - state: test
+      install:
+        - npm install
+      script:
+        - npm test -- coverage --watchAll
+    - stage: build
+      install: skip
+      script: 
+        - npm run build
+    - stage: deploy
+      install: skip
+      script: skip
+      deploy:
+        provider: s3
+        access_key_id: $ACCESS_KEY_ID
+        secret_access_key: $SCRET_ACCESS_KEY
+        bucket: $S3_BUCKET
+        skip_cleanup: true
+        region: "ap-southeast-2"
+        on:
+          branch: master
