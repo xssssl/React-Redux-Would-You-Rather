@@ -28,7 +28,7 @@ jobs:
       deploy:
         provider: s3
         access_key_id: $ACCESS_KEY_ID
-        secret_access_key: $SCRET_ACCESS_KEY
+        secret_access_key: $SECRET_ACCESS_KEY
         bucket: $S3_BUCKET
         cleanup: true
         region: "ap-southeast-2"
