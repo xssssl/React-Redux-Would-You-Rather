@@ -33,5 +33,6 @@ jobs:
         bucket: $S3_BUCKET
         cleanup: true
         region: "ap-southeast-2"
-        # on:
+        on:
         #   branch: master
+          all_branches: true
