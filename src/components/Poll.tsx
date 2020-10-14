@@ -68,7 +68,7 @@ export type MapStateToPropsType = PollFrameComponentProps & {
   isAnswered: boolean
 }
 
-const mapStateToProps = (state: RootState, 
+export const mapStateToProps = (state: RootState, 
     ownProps: RouteComponentProps<QueryString>): MapStateToPropsType => {
   const { qid } = ownProps.match.params
   const authedUser = state.userAuth.id

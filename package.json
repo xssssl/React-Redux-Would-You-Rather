@@ -1,5 +1,5 @@
 {
-  "name": "udacity-would-you-rather",
+  "name": "react-redux-would-you-rather",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

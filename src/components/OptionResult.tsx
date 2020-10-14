@@ -12,7 +12,8 @@ interface OptionResultProps {
   optionOneText: string,
   optionOneVotes: ProgressBarProps,
   optionTwoText: string,
-  optionTwoVotes: ProgressBarProps
+  optionTwoVotes: ProgressBarProps,
+  id?: string
 }
 
 const OptionResult: React.FC<OptionResultProps> = (props) => {

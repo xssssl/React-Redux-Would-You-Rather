@@ -158,4 +158,28 @@ describe('component ConnectedLogin', () => {
     // handleFetchUsersData would consume store.dispatch once
     expect(store.dispatch).toHaveBeenCalledTimes(2)
   })
+
+  it('should not dispatch any action if both username and password are invalid', () => {
+    const store = createStore(rootReducer, initialState, applyMiddleware(thunk))
+    store.dispatch = jest.fn()
+    render(
+      <Router>
+        <ConnectedLogin />
+      </Router>,
+      { initialState, store }
+    )
+    // const usernameInput = screen.getByLabelText(/username/i)
+    const passwordInput = screen.getByLabelText(/password/i)
+    const loginBtn = screen.getByTestId('loginBtn')
+
+    // fireEvent.change(usernameInput, {
+    //   target: { value: Object.keys(initialState.users.data)[0] }
+    // })
+    fireEvent.change(passwordInput, {
+      target: { value: '' }
+    })
+    fireEvent.click(loginBtn)
+    // handleFetchUsersData would consume store.dispatch once
+    expect(store.dispatch).toHaveBeenCalledTimes(1)
+  })
 })
