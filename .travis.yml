@@ -15,7 +15,7 @@ jobs:
       install:
         - npm install
       script:
-        - npm test -- coverage --watchAll
+        - npm test
     - stage: build
       install: skip
       script: 
