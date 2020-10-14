@@ -1,15 +1,16 @@
 language: node_js
 node_js:
   - node
+os:
+  - linux
 cache:
   directories:
   - node_modules
 env:
-  jobs:
-    - S3_BUCKET = "react-redux-would-you-rather"
+  - S3_BUCKET = "react-redux-would-you-rather"
 jobs:
   include:
-    - state: test
+    - stage: test
       install:
         - npm install
       script:
@@ -26,7 +27,7 @@ jobs:
         access_key_id: $ACCESS_KEY_ID
         secret_access_key: $SCRET_ACCESS_KEY
         bucket: $S3_BUCKET
-        skip_cleanup: true
+        cleanup: true
         region: "ap-southeast-2"
         on:
           branch: master
