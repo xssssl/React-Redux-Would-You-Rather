@@ -17,11 +17,11 @@ env:
 #   - deploy
 jobs:
   include:
-    - stage: test
-      install:
-        - npm install
-      script:
-        - npm test
+    # - stage: test
+    #   install:
+    #     - npm install
+    #   script:
+    #     - npm test
     - stage: build
       install: skip
       script: 
@@ -33,7 +33,8 @@ jobs:
         - sudo ./aws/install
       # install: skip
       script: 
-        - echo ls
+        - aws --version
+        - ls
         - aws s3 sync build s3://$S3_BUCKET
     # if: branch = master
 
