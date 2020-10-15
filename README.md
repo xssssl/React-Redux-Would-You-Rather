@@ -1,7 +1,6 @@
 # React Redux Woud You Rather
 
 [![Build Status](https://travis-ci.com/xssssl/React-Redux-Would-You-Rather.svg?branch=master)](https://travis-ci.com/xssssl/React-Redux-Would-You-Rather)
-
 [![codecov](https://codecov.io/gh/xssssl/React-Redux-Would-You-Rather/branch/master/graph/badge.svg?token=T8Y1IQSNJR)](undefined)
 
 ## Into
