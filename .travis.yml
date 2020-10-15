@@ -18,21 +18,19 @@ jobs:
         - npm install
       script:
         - npm test
-    # - stage: build
-    #   install: skip
+      after-success:
+        - bash <(curl -s https://codecov.io/bash)
+    # - stage: build & deploy
+    #   # install: skip
+    #   before-script:
+    #     - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
+    #     - unzip awscliv2.zip
+    #     - sudo ./aws/install
     #   script: 
+    #     - aws --version
     #     - npm run build
-    - stage: build & deploy
-      # install: skip
-      before-script:
-        - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
-        - unzip awscliv2.zip
-        - sudo ./aws/install
-      script: 
-        - aws --version
-        - npm run build
-        - aws s3 sync build s3://$S3_BUCKET
-      # if: branch = master
+    #     - aws s3 sync build s3://$S3_BUCKET
+    #   if: branch = master
 
 
       # deploy:
