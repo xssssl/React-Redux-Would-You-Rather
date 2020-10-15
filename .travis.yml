@@ -18,7 +18,8 @@ jobs:
         - npm install
       script:
         - npm test -- --coverage --watchAll
-      after-success:
+      # after-success:
+        - ls
         - cd ./coverage
         - ls
         - bash <(curl -s https://codecov.io/bash)
