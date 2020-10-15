@@ -11,10 +11,6 @@ env:
     - CI: false   # otherwise build will fail if there are warnings
   jobs:
     - S3_BUCKET: react-redux-would-you-rather
-# stages:
-#   - test
-#   - build
-#   - deploy
 jobs:
   include:
     # - stage: test
@@ -26,19 +22,17 @@ jobs:
     #   install: skip
     #   script: 
     #     - npm run build
-    - stage: deploy
-      before-install:
+    - stage: build & deploy
+      # install: skip
+      before-script:
         - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
         - unzip awscliv2.zip
         - sudo ./aws/install
-      # install: skip
       script: 
         - aws --version
-        - ls
         - npm run build
-        - ls
         - aws s3 sync build s3://$S3_BUCKET
-    # if: branch = master
+      if: branch = master
 
 
       # deploy:
