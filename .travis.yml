@@ -22,7 +22,7 @@ jobs:
         - ls
         - cd ./coverage
         - ls
-        - bash <(curl -s https://codecov.io/bash) -t token
+        - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
     # - stage: build & deploy
     #   # install: skip
     #   before-script:
