@@ -17,20 +17,29 @@ jobs:
       install:
         - npm install
       script:
-        - npm test
-    - stage: build
-      install: skip
+        - npm test -- --coverage
+      after-success:
+        - bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+    - stage: build & deploy
+      # install: skip
+      before-script:
+        - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
+        - unzip awscliv2.zip
+        - sudo ./aws/install
       script: 
+        - aws --version
         - npm run build
-    - stage: deploy
-      install: skip
-      script: skip
-      deploy:
-        provider: s3
-        access_key_id: $ACCESS_KEY_ID
-        secret_access_key: $SECRET_ACCESS_KEY
-        bucket: $S3_BUCKET
-        cleanup: true
-        region: "ap-southeast-2"
-        on:
-          branch: master
+        - aws s3 sync build s3://$S3_BUCKET
+      if: branch = master
+
+      # deploy:
+      #   provider: s3
+      #   access_key_id: $ACCESS_KEY_ID
+      #   secret_access_key: $SECRET_ACCESS_KEY
+        # project: ./build/
+        # bucket: $S3_BUCKET
+        # cleanup: true
+        # region: "ap-southeast-2"
+        # on:
+        #   branch: master
+          # all_branches: true

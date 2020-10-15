@@ -1,5 +1,8 @@
 # React Redux Woud You Rather
 
+[![Build Status](https://travis-ci.com/xssssl/React-Redux-Would-You-Rather.svg?branch=master)](https://travis-ci.com/xssssl/React-Redux-Would-You-Rather)
+[![codecov](https://codecov.io/gh/xssssl/React-Redux-Would-You-Rather/branch/master/graph/badge.svg?token=T8Y1IQSNJR)](undefined)
+
 ## Into
 
 This project is inspired by Udacity Nanodegree Program -- **React & Redux**. It is extended from the project 2 -- [Would You Rather](https://github.com/udacity/reactnd-project-would-you-rather-starter). It could meet all the assignment [rubrics](https://github.com/xssssl/React-Redux-Would-You-Rather/blob/master/rubrics.pdf) and do much than that.
