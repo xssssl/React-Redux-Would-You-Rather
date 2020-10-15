@@ -22,10 +22,10 @@ jobs:
     #     - npm install
     #   script:
     #     - npm test
-    - stage: build
-      install: skip
-      script: 
-        - npm run build
+    # - stage: build
+    #   install: skip
+    #   script: 
+    #     - npm run build
     - stage: deploy
       before-install:
         - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
@@ -34,6 +34,8 @@ jobs:
       # install: skip
       script: 
         - aws --version
+        - ls
+        - npm run build
         - ls
         - aws s3 sync build s3://$S3_BUCKET
     # if: branch = master
