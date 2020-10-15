@@ -13,11 +13,11 @@ env:
     - S3_BUCKET: react-redux-would-you-rather
 jobs:
   include:
-    # - stage: test
-    #   install:
-    #     - npm install
-    #   script:
-    #     - npm test
+    - stage: test
+      install:
+        - npm install
+      script:
+        - npm test
     # - stage: build
     #   install: skip
     #   script: 
